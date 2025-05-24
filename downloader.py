@@ -105,7 +105,9 @@ def download_video(url, format_id=None, output_path=None, download_subs=True, su
             'writesubtitles': True,        # 下载字幕
             'writeautomaticsub': True,     # 下载自动生成的字幕
             'subtitleslangs': sub_langs,   # 字幕语言
-            'subtitlesformat': 'srt',      # 字幕格式
+            # 'subtitlesformat': 'srt',      # 字幕格式
+            'subtitlesformat': 'best',      # 字幕格式
+            'embedsubtitles': True,        # 嵌入字幕到视频
         })
 
     # 如果指定了格式，则使用该格式
@@ -121,10 +123,15 @@ def download_video(url, format_id=None, output_path=None, download_subs=True, su
         import shutil
         if shutil.which('ffmpeg'):
             print("已检测到ffmpeg，支持格式合并")
-            ydl_opts['postprocessors'] = [{
-                'key': 'FFmpegVideoConvertor',
-                'preferedformat': 'mp4',  # 转换为MP4格式
-            }]
+            ydl_opts['postprocessors'] = [
+                {
+                    'key': 'FFmpegVideoConvertor',
+                    'preferedformat': 'mp4',  # 转换为MP4格式
+                },
+                {
+                    'key': 'FFmpegEmbedSubtitle'  # 显式嵌入字幕
+                }
+            ]
         else:
             print("警告: 未检测到ffmpeg，某些格式可能无法合并")
     except ImportError:

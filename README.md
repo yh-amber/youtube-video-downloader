@@ -49,7 +49,7 @@ python downloader.py "https://www.youtube.com/watch?v=<YOUTUBE_VIDEO_ID>" "<down
 ### 下载Python教程视频
 
 ```bash
-python downloader.py "https://www.youtube.com/watch?v=ix9cRaBkVe0"
+python downloader.py "https://www.youtube.com/playlist?list=PLE7DDD91010BC51F8"
 ```
 
 ## 注意事项
